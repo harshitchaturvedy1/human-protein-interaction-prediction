@@ -180,9 +180,7 @@ Harshit Chaturvedy
 
 ## Contact
 
-- Email: harshitchaturvedy@gmail.com
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Instagram: [@harshitchaturvedy](https://instagram.com/harshitchaturvedy)
+- Email: harshitchaturvedy@gmail.com, saisohan.panda@gmail.com
 
 ---
 
