@@ -1,0 +1,5 @@
+# Git LFS Configuration
+# Use Git LFS for large model files
+
+*.pkl filter=lfs diff=lfs merge=lfs -text
+*.pickle filter=lfs diff=lfs merge=lfs -text
