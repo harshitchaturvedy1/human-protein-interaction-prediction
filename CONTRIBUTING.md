@@ -55,7 +55,7 @@ Describe:
 ## Questions?
 
 - Open a GitHub issue for bugs or features
-- Email: harshitchaturvedy@gmail.com
+- Email: harshitchaturvedy@gmail.com, saisohan.panda@gmail.com
 
 ---
 
