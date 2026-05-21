@@ -48,6 +48,8 @@ This project implements a two-phase approach to predict protein-protein interact
 ## Data
 
 **Source:** BioGRID (Biological General Repository for Interaction Datasets)
+**Link:**[BioGRID (Biological General Repository for Interaction Datasets)](https://downloads.thebiogrid.org/File/BioGRID/Latest-Release/BIOGRID-ALL-LATEST.tab3.zip)
+
 
 **Dataset Composition:**
 - 1000 confirmed protein-protein interactions (positive class)
