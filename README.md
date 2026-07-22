@@ -107,7 +107,7 @@ For each of `len`, `mw`, `arom`, `inst`, `gravy`, `pi`: a `_sum` and `_absdiff` 
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/human-protein-interaction-prediction.git
+git clone https://github.com/harshitchaturvedy1/human-protein-interaction-prediction.git
 cd human-protein-interaction-prediction
 
 # Create virtual environment (optional but recommended)
