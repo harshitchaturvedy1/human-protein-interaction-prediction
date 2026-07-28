@@ -207,7 +207,7 @@ human-protein-interaction-prediction/
 
 ## License
 
-MIT License - See LICENSE file for details
+GNU General Public License v3.0 — see the [LICENSE](LICENSE) file for details.
 
 ## Author
 
@@ -226,7 +226,7 @@ Harshit Chaturvedy
 
 ## Contact
 
-- Email: harshitchaturvedy@gmail.com, saisohan.panda@gmail.com
+- Email: harshitchaturvedy@gmail.com, saisohan.panda@gmail.com, shivanshsahni10@gmail.com
 
 ---
 
