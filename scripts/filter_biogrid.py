@@ -72,11 +72,25 @@ KEEP_COLUMNS = [
 HUMAN_TAXID = 9606
 
 
-def filter_biogrid(input_path: str, output_path: str, sample_n: int = 1000, sample_seed: int = 42):
-    print(f"Loading {input_path} ...")
-    df = pd.read_csv(input_path, sep="\t", low_memory=False)
+def filter_biogrid(input_path: str, output_path: str, sample_n: int = 1000, sample_seed: int = 42, input_sep: str = "\t", output_sep: str = "\t"):
+    """
+    input_sep / output_sep: BioGRID's official .tab3 files are TAB-separated
+    despite sometimes having a .csv-like name. Previously this script read
+    with sep="\\t" but wrote with pandas' to_csv() default (comma) with no
+    explicit sep argument -- a delimiter mismatch between the read and write
+    paths. Both are now explicit and independently overridable via CLI flags,
+    so the actual delimiter of your BioGRID release and the delimiter you
+    want downstream scripts to expect are both stated, not assumed.
+    If your local BIOGRID-ALL-*.csv is actually comma-separated (not the
+    tab-separated .tab3 format), pass --input-sep ",".
+    """
+    print(f"Loading {input_path} (delimiter: {'TAB' if input_sep == chr(9) else repr(input_sep)}) ...")
+    df = pd.read_csv(input_path, sep=input_sep, low_memory=False)
     n_total = len(df)
-    print(f"  {n_total} total rows in raw release")
+    print(f"  {n_total} total rows in raw release, {len(df.columns)} columns")
+    if len(df.columns) == 1:
+        print("  WARNING: only 1 column was parsed. This usually means the delimiter is wrong --")
+        print("  try the other value for --input-sep (comma vs tab).")
 
     # Filter 1: physical evidence only (excludes genetic interactions)
     df = df[df["Experimental System Type"].str.lower() == "physical"]
@@ -96,15 +110,15 @@ def filter_biogrid(input_path: str, output_path: str, sample_n: int = 1000, samp
         print(f"  WARNING: expected columns not found in input, skipped: {missing}")
     df = df[available_cols]
 
-    df.to_csv(output_path, index=False)
-    print(f"\nSaved filtered dataset to {output_path}: {len(df)} rows")
+    df.to_csv(output_path, index=False, sep=output_sep)
+    print(f"\nSaved filtered dataset to {output_path} (delimiter: {'TAB' if output_sep == chr(9) else repr(output_sep)}): {len(df)} rows")
 
     # Modeling sample (evidence-row sample, not canonical-pair sample --
     # see note in module docstring)
     sample_df = df.sample(n=min(sample_n, len(df)), random_state=sample_seed)
     sample_path = output_path.replace(".csv", f"_sample_{sample_n}.csv")
-    sample_df.to_csv(sample_path, index=False)
-    print(f"Saved {sample_n}-row evidence sample to {sample_path}")
+    sample_df.to_csv(sample_path, index=False, sep=output_sep)
+    print(f"Saved {sample_n}-row evidence sample to {sample_path} (delimiter: {'TAB' if output_sep == chr(9) else repr(output_sep)})")
     print("\nNOTE: this sample is drawn from evidence rows and may contain")
     print("duplicate or reversed (A-B/B-A) pairs. Downstream modeling code")
     print("canonicalizes and deduplicates before use.")
@@ -118,5 +132,7 @@ if __name__ == "__main__":
     parser.add_argument("--output", default="biogrid_filtered.csv", help="Path to write filtered CSV")
     parser.add_argument("--sample-n", type=int, default=1000, help="Rows to sample for the modeling set")
     parser.add_argument("--sample-seed", type=int, default=42, help="Random seed for sampling")
+    parser.add_argument("--input-sep", default="\t", help="Delimiter of the input file (default: tab, BioGRID's standard .tab3 format)")
+    parser.add_argument("--output-sep", default="\t", help="Delimiter to write output with (default: tab, to match input; use ',' for a standard CSV)")
     args = parser.parse_args()
-    filter_biogrid(args.input, args.output, args.sample_n, args.sample_seed)
+    filter_biogrid(args.input, args.output, args.sample_n, args.sample_seed, args.input_sep, args.output_sep)
