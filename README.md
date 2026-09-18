@@ -209,7 +209,10 @@ Neural networks, transformers, ESM embeddings, and further model tuning are expl
 
 ## License
 
-GPL-3.0 License — see LICENSE file for details
+## License
+
+GPL-3.0 License — see the [LICENSE](LICENSE) file for details.
+
 
 ## Author
 
@@ -228,7 +231,7 @@ Harshit Chaturvedy
 
 ## Contact
 
-- Email: harshitchaturvedy@gmail.com, saisohan.panda@gmail.com
+- Email: harshitchaturvedy@gmail.com, saisohan.panda@gmail.com, shivanshsahni10@gmail.com
 
 ---
 
